@@ -3,7 +3,7 @@ import pygame, sys
 
 pygame.init()
 clock=pygame.time.Clock()
-
+#creating screen of the game
 screen = pygame.display.set_mode((400,600))
 
 #creating objects of game
@@ -15,9 +15,11 @@ enemyspeed= -2;
 bullet=pygame.Rect(200,400,5,10)
 bulletspeed=5 
 bulletState="ready"
-        
-while True:    
+#game loop        
+while True:
+    #Adding a background color    
     screen.fill((0,0,0))
+    #Checking for the events in the game    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -29,7 +31,7 @@ while True:
                 player.x +=playerSpeed
             if event.key == pygame.K_SPACE:
                 bulletState="fired"
-    
+    #Controlling movement of bullet in ready and play state
     if bulletState == "ready":
         bullet.x=player.x+12
         bullet.y=player.y
@@ -39,9 +41,10 @@ while True:
        if bullet.y<0:
            bulletState="ready"
 
-                   
+    #Moving the enemy                
     enemy.x= enemy.x + enemyspeed
     
+    #changing the direction of enemy movement when edges are reached
     if enemy.x == 0:
         enemyspeed=enemyspeed * -1
         enemy.y= enemy.y + 20
@@ -49,7 +52,8 @@ while True:
     if enemy.x == 380:
         enemyspeed=enemyspeed * -1
         enemy.y= enemy.y + 20
-        
+    
+#drawing objects of the game
     pygame.draw.rect(screen,(225,225,15),bullet)         
     pygame.draw.rect(screen,(123,200,100),enemy)
     pygame.draw.rect(screen,(23,100,100),player)
